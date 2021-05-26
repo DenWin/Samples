@@ -61,7 +61,6 @@ stages:
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
 
-  jobs:
   - deployment: setVar_deployment_Rolling
     environment: env1
     strategy:
