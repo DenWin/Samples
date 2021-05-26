@@ -1,0 +1,106 @@
+pool:
+  vmImage: 'windows-latest'
+
+parameters:
+- name: variableName
+  displayName: Variable Name
+  type: string
+  default: "var4"
+- name: variableExpression
+  displayName: Variable Expression
+  type: string
+  default: "$[ variables['var4'] ]"
+
+variables:
+  variableName: var4
+  var1: fred
+  var2: barney
+  var3: wilma
+  var4: betty
+  var5: $(var1)
+  var6: $[ variables.var2 ]
+  var7: $[ variables['var3'] ]
+  var8: $[ variables['${{ variables.variableName }}'] ]
+  var9: $[ variables['${{ parameters.variableName }}'] ] 
+  var10: ${{ parameters.variableExpression }}
+ 
+  var11: ${{ variables.var5 }}
+  var12: ${{ variables.var6 }}
+  var13: ${{ variables.var7 }}
+  var14: ${{ variables.var8 }}
+  var15: ${{ variables.var9 }}
+  var16: ${{ variables.var10 }}
+  var17: ${{ variables.var11 }}
+  
+  # Self-reference tests
+  var18: ${{ variables.var18 }}
+  var19: $[ variables.var19 ]
+  var20: $(var20)                             ##[warning]Unable to expand variable 'var20'. A cyclical reference was detected.
+                                              ##This means that all references to var20 in the YAML remains a literal $(var20).
+steps:
+- powershell: echo "$(var1)"                  #fred
+- powershell: echo "$(var2)"                  #barney
+- powershell: echo "$(var3)"                  #wilma
+- powershell: echo "$(var4)"                  #betty
+- powershell: echo "$(var5)"                  #fred
+- powershell: echo "$(var6)"                  #barney
+- powershell: echo "$(var7)"                  #wilma
+- powershell: echo "$(var8)"                  #betty
+- powershell: echo "$(var9)"                  #betty
+- powershell: echo "$(var10)"                 #betty
+- powershell: echo "$(var11)"                 #fred
+- powershell: echo "$(var12)"                 #barney
+- powershell: echo "$(var13)"                 #wilma
+- powershell: echo "$(var14)"                 #betty
+- powershell: echo "$(var15)"                 #betty
+- powershell: echo "$(var16)"                 #betty
+- powershell: echo "$(var17)"                 #fred
+- powershell: echo "$(var18)"                 #(blank)
+- powershell: echo "$(var19)"                 #$[ variables.var19 ]
+# - powershell: echo "$(var20)"                 #Powershell exception -- var20 : The term 'var20' is not recognized as the name of a cmdlet...
+                                                #Note: The only reason this fails is because $ happens to be a signifier of a Powershell variable
+                                                #that was never declared.
+                                                #This didn't actually cause any issues when the YAML variables were being expanded by the pipeline.
+                                                #This line should be commented out to run the remaining steps.
+
+- powershell: echo "${{ variables.var1 }}"                  #fred
+- powershell: echo "${{ variables.var2 }}"                  #barney
+- powershell: echo "${{ variables.var3 }}"                  #wilma
+- powershell: echo "${{ variables.var4 }}"                  #betty
+- powershell: echo "${{ variables.var5 }}"                  #fred
+- powershell: echo "${{ variables.var6 }}"                  #$[ variables.var2 ]
+- powershell: echo "${{ variables.var7 }}"                  #$[ variables['var3'] ]
+- powershell: echo "${{ variables.var8 }}"                  #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var9 }}"                  #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var10 }}"                 #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var11 }}"                 #fred
+- powershell: echo "${{ variables.var12 }}"                 #$[ variables.var2 ]
+- powershell: echo "${{ variables.var13 }}"                 #$[ variables['var3'] ]
+- powershell: echo "${{ variables.var14 }}"                 #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var15 }}"                 #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var16 }}"                 #$[ variables['var4'] ]
+- powershell: echo "${{ variables.var17 }}"                 #fred
+- powershell: echo "${{ variables.var18 }}"                 #(blank)
+- powershell: echo "${{ variables.var19 }}"                 #$[ variables.var19 ]
+#- powershell: echo "${{ variables.var20 }}"                 #Powershell exception: see above
+
+- powershell: echo "$[ variables.var1 ]"                  #$[ variables.var1 ]
+- powershell: echo "$[ variables.var2 ]"                  #$[ variables.var2 ]
+- powershell: echo "$[ variables.var3 ]"                  #$[ variables.var3 ]
+- powershell: echo "$[ variables.var4 ]"                  #$[ variables.var4 ]
+- powershell: echo "$[ variables.var5 ]"                  #$[ variables.var5 ]
+- powershell: echo "$[ variables.var6 ]"                  #$[ variables.var6 ]
+- powershell: echo "$[ variables.var7 ]"                  #$[ variables.var7 ]
+- powershell: echo "$[ variables.var8 ]"                  #$[ variables.var8 ]
+- powershell: echo "$[ variables.var9 ]"                  #$[ variables.var9 ]
+- powershell: echo "$[ variables.var10 ]"                 #$[ variables.var10 ]
+- powershell: echo "$[ variables.var11 ]"                 #$[ variables.var11 ]
+- powershell: echo "$[ variables.var12 ]"                 #$[ variables.var12 ]
+- powershell: echo "$[ variables.var13 ]"                 #$[ variables.var13 ]
+- powershell: echo "$[ variables.var14 ]"                 #$[ variables.var14 ]
+- powershell: echo "$[ variables.var15 ]"                 #$[ variables.var15 ]
+- powershell: echo "$[ variables.var16 ]"                 #$[ variables.var16 ]
+- powershell: echo "$[ variables.var17 ]"                 #$[ variables.var17 ]
+- powershell: echo "$[ variables.var18 ]"                 #$[ variables.var18 ]
+- powershell: echo "$[ variables.var19 ]"                 #$[ variables.var19 ]
+- powershell: echo "$[ variables.var20 ]"                 #$[ variables.var20 ]
