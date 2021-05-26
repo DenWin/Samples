@@ -59,7 +59,7 @@ stages:
     environment: env1
     strategy:
       rolling:
-        maxParallel: 5  #for percentages, mention as x%
+        maxParallel: 1  #for percentages, mention as x%
         preDeploy:
           steps:
           - bash: |
