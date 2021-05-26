@@ -2,7 +2,8 @@ stages:
 - stage: StageA
   jobs:
   - deployment: setVar_deployment_RunOnce
-    environment: env1
+    environment: 
+      name: env
     strategy:
       runOnce:
         preDeploy:
@@ -56,7 +57,9 @@ stages:
             - bash: echo $(setvarStep.myOutputVar_on_success)
 
   - deployment: setVar_deployment_Rolling
-    environment: env1
+    environment: 
+      name: env
+      resourceType: virtualmachine
     strategy:
       rolling:
         maxParallel: 1  #for percentages, mention as x%
@@ -111,7 +114,9 @@ stages:
             - bash: echo $(setvarStep.myOutputVar_on_success)
 
   - deployment: setVar_deployment_Canary
-    environment: env1
+    environment: 
+      name: env
+      resourceType: virtualmachine
     strategy:
       canary:
         increments: [10,20]  # Creates multiple jobs, one for each increment. Output variable can be referenced with this.
