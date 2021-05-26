@@ -1,176 +1,6 @@
 stages:
 - stage: StageA
   jobs:
-  - deployment: setVar_deployment_RunOnce
-    environment: 
-      name: env1
-    strategy:
-      runOnce:
-        preDeploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_RunOnce - preDeploy"
-            name: setVar_deployment_RunOnce_preDeploy
-          - bash: echo $(setvarStep.myOutputVar_preDeploy)
-        deploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_RunOnce - deploy"
-            name: setVar_deployment_RunOnce_deploy
-          - bash: echo $(setvarStep.myOutputVar_deploy)
-        routeTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - routTraffic"
-            name: setVar_deployment_RunOnce_routeTraffic
-          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
-        postRouteTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - postRouteTraffic"
-            name: setVar_deployment_RunOnce_postRouteTraffic
-          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
-        on:
-          failure:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
-              name: setVar_deployment_RunOnce_on_failure
-            - bash: echo $(setvarStep.myOutputVar_on_failure)
-          success:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_RunOnce - on - success"
-              name: setVar_deployment_RunOnce_on_success
-            - bash: echo $(setvarStep.myOutputVar_on_success)
-
-  - deployment: setVar_deployment_Rolling
-    condition: false
-    environment: 
-      name: env1
-      resourceType: virtualmachine
-    strategy:
-      rolling:
-        maxParallel: 1  #for percentages, mention as x%
-        preDeploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Rolling - preDeploy"
-            name: setVar_deployment_Rolling_preDeploy
-          - bash: echo $(setvarStep.myOutputVar_preDeploy)
-        deploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Rolling - deploy"
-            name: setVar_deployment_Rolling_deploy
-          - bash: echo $(setvarStep.myOutputVar_deploy)
-        routeTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - routTraffic"
-            name: setVar_deployment_Rolling_routeTraffic
-          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
-        postRouteTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - postRouteTraffic"
-            name: setVar_deployment_Rolling_postRouteTraffic
-          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
-        on:
-          failure:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
-              name: setVar_deployment_Rolling_on_failure
-            - bash: echo $(setvarStep.myOutputVar_on_failure)
-          success:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
-              name: setVar_deployment_Rolling_on_success
-            - bash: echo $(setvarStep.myOutputVar_on_success)
-
-  - deployment: setVar_deployment_Canary
-    environment: 
-      name: env1
-      resourceType: virtualmachine
-    strategy:
-      canary:
-        increments: [10,20]  # Creates multiple jobs, one for each increment. Output variable can be referenced with this.
-        preDeploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Canary - preDeploy"
-            name: setVar_deployment_Canary_preDeploy
-          - bash: echo $(setvarStep.myOutputVar_preDeploy)
-        deploy:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Canary - deploy"
-            name: setVar_deployment_Canary_deploy
-          - bash: echo $(setvarStep.myOutputVar_deploy)
-        routeTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Canary - routTraffic"
-            name: setVar_deployment_Canary_routeTraffic
-          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
-        postRouteTraffic:
-          steps:
-          - bash: |
-                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Canary - postRouteTraffic"
-            name: setVar_deployment_Canary_postRouteTraffic
-          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
-        on:
-          failure:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
-              name: setVar_deployment_Canary_on_failure
-            - bash: echo $(setvarStep.myOutputVar_on_failure)
-          success:
-            steps:
-            - bash: |
-                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
-              name: setVar_deployment_Canary_on_success
-            - bash: echo $(setvarStep.myOutputVar_on_success)
-
   - job: setVar_job
     steps:
     - bash: echo "dependencies.$(System.JobName).outputs['setvarStep.myOutputVar']"
@@ -180,88 +10,310 @@ stages:
     - bash: echo $(setvarStep.myOutputVar)
       name: echovar
 
-  - job: echoVars_dependencies_works_with_var_or_direct
-    displayName: echoVars_dependencies - works with variables or direct
-    dependsOn: [setVar_deployment_RunOnce
-               ,setVar_deployment_Rolling
-               ,setVar_deployment_Canary
-               ,setVar_job]
+  - deployment: setVar_deployment_RunOnce
+    environment:
+      name: env1
+    strategy:
+      runOnce:
+        preDeploy:
+          steps:
+          - bash: |
+                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy']"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_RunOnce - preDeploy"
+            name: setVar_deployment_RunOnce_preDeploy
+          - bash: echo $(setvarStep.myOutputVar_preDeploy)
+        deploy:
+          steps:
+          - bash: |
+                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_deploy.myOutputVar_deploy']"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_RunOnce - deploy"
+            name: setVar_deployment_RunOnce_deploy
+          - bash: echo $(setvarStep.myOutputVar_deploy)
+        routeTraffic:
+          steps:
+          - bash: |
+                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_routeTraffic.myOutputVar_routeTraffic']"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - routTraffic"
+            name: setVar_deployment_RunOnce_routeTraffic
+          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
+        postRouteTraffic:
+          steps:
+          - bash: |
+                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_postRouteTraffic.myOutputVar_postRouteTraffic']"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - postRouteTraffic"
+            name: setVar_deployment_RunOnce_postRouteTraffic
+          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
+        on:
+          failure:
+            steps:
+            - bash: |
+                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_on_failure.myOutputVar_on_failure']"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
+              name: setVar_deployment_RunOnce_on_failure
+            - bash: echo $(setvarStep.myOutputVar_on_failure)
+          success:
+            steps:
+            - bash: |
+                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_RunOnce_on_success.myOutputVar_on_success']"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_RunOnce - on - success"
+              name: setVar_deployment_RunOnce_on_success
+            - bash: echo $(setvarStep.myOutputVar_on_success)
+
+#  - deployment: setVar_deployment_Rolling
+#    environment:
+#      name: env1
+#      resourceType: virtualmachine
+#    strategy:
+#      rolling:
+#        maxParallel: 1  #for percentages, mention as x%
+#        preDeploy:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_preDeploy.myOutputVar_preDeploy']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Rolling - preDeploy"
+#            name: setVar_deployment_Rolling_preDeploy
+#          - bash: echo $(setvarStep.myOutputVar_preDeploy)
+#        deploy:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_deploy.myOutputVar_deploy']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Rolling - deploy"
+#            name: setVar_deployment_Rolling_deploy
+#          - bash: echo $(setvarStep.myOutputVar_deploy)
+#        routeTraffic:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_routeTraffic.myOutputVar_routeTraffic']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - routTraffic"
+#            name: setVar_deployment_Rolling_routeTraffic
+#          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
+#        postRouteTraffic:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_postRouteTraffic.myOutputVar_postRouteTraffic']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - postRouteTraffic"
+#            name: setVar_deployment_Rolling_postRouteTraffic
+#          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
+#        on:
+#          failure:
+#            steps:
+#            - bash: |
+#                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_on_failure.myOutputVar_on_failure']"
+#                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+#            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
+#              name: setVar_deployment_Rolling_on_failure
+#            - bash: echo $(setvarStep.myOutputVar_on_failure)
+#          success:
+#            steps:
+#            - bash: |
+#                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Rolling_on_success.myOutputVar_on_success']"
+#                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+#            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
+#              name: setVar_deployment_Rolling_on_success
+#            - bash: echo $(setvarStep.myOutputVar_on_success)
+
+#
+#  - deployment: setVar_deployment_Canary
+#    environment:
+#      name: env1
+#      resourceType: virtualmachine
+#    strategy:
+#      canary:
+#        increments: [10,20]  # Creates multiple jobs, one for each increment. Output variable can be referenced with this.
+#        preDeploy:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_preDeploy.myOutputVar_preDeploy']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Canary - preDeploy"
+#            name: setVar_deployment_Canary_preDeploy
+#          - bash: echo $(setvarStep.myOutputVar_preDeploy)
+#        deploy:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_deploy.myOutputVar_deploy']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Canary - deploy"
+#            name: setVar_deployment_Canary_deploy
+#          - bash: echo $(setvarStep.myOutputVar_deploy)
+#        routeTraffic:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_routeTraffic.myOutputVar_routeTraffic']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Canary - routTraffic"
+#            name: setVar_deployment_Canary_routeTraffic
+#          - bash: echo $(setvarStep.myOutputVar_routeTraffic)
+#        postRouteTraffic:
+#          steps:
+#          - bash: |
+#                  echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_postRouteTraffic.myOutputVar_postRouteTraffic']"
+#                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+#          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Canary - postRouteTraffic"
+#            name: setVar_deployment_Canary_postRouteTraffic
+#          - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
+#        on:
+#          failure:
+#            steps:
+#            - bash: |
+#                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_on_failure.myOutputVar_on_failure']"
+#                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+#            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
+#              name: setVar_deployment_Canary_on_failure
+#            - bash: echo $(setvarStep.myOutputVar_on_failure)
+#          success:
+#            steps:
+#            - bash: |
+#                    echo "dependencies.$(System.JobName).outputs['$(System.JobName).setVar_deployment_Canary_on_success.myOutputVar_on_success']"
+#                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+#            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
+#              name: setVar_deployment_Canary_on_success
+#            - bash: echo $(setvarStep.myOutputVar_on_success)
+
+  - job: echoVar_dependencies_job
+    displayName: echoVars_dependencies_job
+    dependsOn: setVar_job
     variables:
-      setVar_deployment_RunOnce_preDeploy: $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy'] ]
-      setVar_deployment_RunOnce_deploy:    $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_deploy.myOutputVar_deploy'] ]
+      setVar_job: $[ dependencies.setVar_job.outputs['setvarStep.myOutputVar'] ]
+    steps:
+    - script: |
+              echo $(setVar_job)
+      name: echovar_setVar_job
+
+  - job: echoVars_dependencies_RunOnce
+    displayName: echoVars_dependencies_RunOnce
+    dependsOn: setVar_deployment_RunOnce
+    variables:
+      setVar_deployment_RunOnce_preDeploy:        $[ dependencies.setVar_deployment_RunOnce.outputs['PreDeploy.setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy'] ]
+      setVar_deployment_RunOnce_deploy:           $[ dependencies.setVar_deployment_RunOnce.outputs['Deploy.setVar_deployment_RunOnce_deploy.myOutputVar_deploy'] ]
+      setVar_deployment_RunOnce_routeTraffic:     $[ dependencies.setVar_deployment_RunOnce.outputs['RouteTraffic.setVar_deployment_RunOnce_routeTraffic.myOutputVar_routeTraffic'] ]
+      setVar_deployment_RunOnce_postRouteTraffic: $[ dependencies.setVar_deployment_RunOnce.outputs['PostRouteTraffic.setVar_deployment_RunOnce_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+      setVar_deployment_RunOnce_on_failure:       $[ dependencies.setVar_deployment_RunOnce.outputs['OnFailure.setVar_deployment_RunOnce_on_failure.myOutputVar_on_failure'] ]
+      setVar_deployment_RunOnce_on_success:       $[ dependencies.setVar_deployment_RunOnce.outputs['OnSuccess.setVar_deployment_RunOnce_on_success.myOutputVar_on_success'] ]
     steps:
     - script: |
               echo $(setVar_deployment_RunOnce_preDeploy)
-              echo  $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy'] ]
               echo $(setVar_deployment_RunOnce_deploy)
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_deploy.myOutputVar_deploy'] ]
-      name: echovar
-
-  - job: echoVars_dependencies
-    displayName: echoVars_dependencies - only direct
-    dependsOn: [setVar_deployment_RunOnce
-               ,setVar_deployment_Rolling
-               ,setVar_deployment_Canary
-               ,setVar_job]
-    steps:
-    - script: |
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy'] ]
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_deploy.myOutputVar_deploy'] ]
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_routTraffic.myOutputVar_routTraffic'] ]
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_on_failure.myOutputVar_on_failure'] ]
-              echo $[ dependencies.setVar_deployment_RunOnce.outputs['setVar_deployment_RunOnce.setVar_deployment_RunOnce_on_success.myOutputVar_on_success'] ]
+              echo $(setVar_deployment_RunOnce_routeTraffic)
+              echo $(setVar_deployment_RunOnce_postRouteTraffic)
+              echo $(setVar_deployment_RunOnce_on_failure)
+              echo $(setVar_deployment_RunOnce_on_success)
       name: echovar_setVar_RunOnce
-    - script: |
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_preDeploy.myOutputVar_preDeploy'] ]
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_deploy.myOutputVar_deploy'] ]
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_routTraffic.myOutputVar_routTraffic'] ]
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_on_failure.myOutputVar_on_failure'] ]
-              echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_on_success.myOutputVar_on_success'] ]
-      name: echovar_setVar_Rolling
-      condition: false
-    - script: |
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_preDeploy.myOutputVar_preDeploy'] ]
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_deploy.myOutputVar_deploy'] ]
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_routTraffic.myOutputVar_routTraffic'] ]
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_on_failure.myOutputVar_on_failure'] ]
-              echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_on_success.myOutputVar_on_success'] ]
-      name: echovar_setVar_Canary
-    - script: |
-              echo $[ dependencies.setVar_job.outputs['setvarStep.myOutputVar'] ]
-      name: echovar_setVar_job
+
+#  - job: echoVars_dependencies_Rolling
+#    displayName: echoVars_dependencies_Rolling
+#    dependsOn: setVar_deployment_Rolling
+#    variables:
+#      setVar_deployment_Rolling_preDeploy:        $[ dependencies.setVar_deployment_Rolling.outputs['PreDeploy.setVar_deployment_Rolling_preDeploy.myOutputVar_preDeploy'] ]
+#      setVar_deployment_Rolling_deploy:           $[ dependencies.setVar_deployment_Rolling.outputs['Deploy.setVar_deployment_Rolling_deploy.myOutputVar_deploy'] ]
+#      setVar_deployment_Rolling_routeTraffic:     $[ dependencies.setVar_deployment_Rolling.outputs['RouteTraffic.setVar_deployment_Rolling_routeTraffic.myOutputVar_routeTraffic'] ]
+#      setVar_deployment_Rolling_postRouteTraffic: $[ dependencies.setVar_deployment_Rolling.outputs['PostRouteTraffic.setVar_deployment_Rolling_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+#      setVar_deployment_Rolling_on_failure:       $[ dependencies.setVar_deployment_Rolling.outputs['OnFailure.setVar_deployment_Rolling_on_failure.myOutputVar_on_failure'] ]
+#      setVar_deployment_Rolling_on_success:       $[ dependencies.setVar_deployment_Rolling.outputs['OnSuccess.setVar_deployment_Rolling_on_success.myOutputVar_on_success'] ]
+#    steps:
+#    - script: |
+#              echo $(setVar_deployment_Rolling_preDeploy)
+#              echo $(setVar_deployment_Rolling_deploy)
+#              echo $(setVar_deployment_Rolling_routeTraffic)
+#              echo $(setVar_deployment_Rolling_postRouteTraffic)
+#              echo $(setVar_deployment_Rolling_on_failure)
+#              echo $(setVar_deployment_Rolling_on_success)
+#      name: echovar_setVar_Rolling
+
+#  - job: echoVars_dependencies_Canary
+#    displayName: echoVars_dependencies_Canary
+#    dependsOn: setVar_deployment_Canary
+#    variables:
+#      setVar_deployment_Canary_preDeploy:        $[ dependencies.setVar_deployment_Canary.outputs['PreDeploy.setVar_deployment_Canary_preDeploy.myOutputVar_preDeploy'] ]
+#      setVar_deployment_Canary_deploy:           $[ dependencies.setVar_deployment_Canary.outputs['Deploy.setVar_deployment_Canary_deploy.myOutputVar_deploy'] ]
+#      setVar_deployment_Canary_routeTraffic:     $[ dependencies.setVar_deployment_Canary.outputs['RouteTraffic.setVar_deployment_Canary_routeTraffic.myOutputVar_routeTraffic'] ]
+#      setVar_deployment_Canary_postRouteTraffic: $[ dependencies.setVar_deployment_Canary.outputs['PostRouteTraffic.setVar_deployment_Canary_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+#      setVar_deployment_Canary_on_failure:       $[ dependencies.setVar_deployment_Canary.outputs['OnFailure.setVar_deployment_Canary_on_failure.myOutputVar_on_failure'] ]
+#      setVar_deployment_Canary_on_success:       $[ dependencies.setVar_deployment_Canary.outputs['OnSuccess.setVar_deployment_Canary_on_success.myOutputVar_on_success'] ]
+#    steps:
+#    - script: |
+#              echo $(setVar_deployment_Canary_preDeploy)
+#              echo $(setVar_deployment_Canary_deploy)
+#              echo $(setVar_deployment_Canary_routeTraffic)
+#              echo $(setVar_deployment_Canary_postRouteTraffic)
+#              echo $(setVar_deployment_Canary_on_failure)
+#              echo $(setVar_deployment_Canary_on_success)
+#      name: echovar_setVar_Canary
 
 - stage: StageB
   jobs:
-  - job: echoVars_stageDependencies
-    displayName: echoVars_stageDependencies
+  - job: echoVar_stageDependencies_job
+    displayName: echoVars_stageDependencies_job
+    variables:
+      setVar_job: $[ stageDependencies.setVar_job.outputs['setvarStep.myOutputVar'] ]
     steps:
     - script: |
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_preDeploy'] ]
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_deploy'] ]
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_routTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_postRouteTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_on_failure'] ]
-              echo $[ stageDependencies.StageA.setVar_RunOnce.outputs['setVar_RunOnce.setvarStep.myOutputVar_on_success'] ]
+              echo $(setVar_job)
+      name: echovar
+
+  - job: echoVars_stageDependencies_RunOnce
+    displayName: echoVars_stageDependencies_RunOnce
+    variables:
+      setVar_deployment_RunOnce_preDeploy:        $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['PreDeploy.setVar_deployment_RunOnce_preDeploy.myOutputVar_preDeploy'] ]
+      setVar_deployment_RunOnce_deploy:           $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['Deploy.setVar_deployment_RunOnce_deploy.myOutputVar_deploy'] ]
+      setVar_deployment_RunOnce_routeTraffic:     $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['RouteTraffic.setVar_deployment_RunOnce_routTraffic.myOutputVar_routTraffic'] ]
+      setVar_deployment_RunOnce_postRouteTraffic: $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['PostRouteTraffic.setVar_deployment_RunOnce_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+      setVar_deployment_RunOnce_on_failure:       $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['OnFailure.setVar_deployment_RunOnce_on_failure.myOutputVar_on_failure'] ]
+      setVar_deployment_RunOnce_on_success:       $[ stageDependencies.StageA.setVar_deployment_RunOnce.outputs['OnSuccess.setVar_deployment_RunOnce_on_success.myOutputVar_on_success'] ]
+    steps:
+    - script: |
+              echo $(setVar_deployment_RunOnce_preDeploy)
+              echo $(setVar_deployment_RunOnce_deploy)
+              echo $(setVar_deployment_RunOnce_routeTraffic)
+              echo $(setVar_deployment_RunOnce_postRouteTraffic)
+              echo $(setVar_deployment_RunOnce_on_failure)
+              echo $(setVar_deployment_RunOnce_on_success)
       name: echovar_setVar_RunOnce
-    - script: |
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_preDeploy'] ]
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_deploy'] ]
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_routTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_postRouteTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_on_failure'] ]
-              echo $[ stageDependencies.StageA.setVar_Rolling.outputs['setVar_Rolling.setvarStep.myOutputVar_on_success'] ]
-      name: echovar_setVar_Rolling
-    - script: |
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_preDeploy'] ]
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_deploy'] ]
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_routTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_postRouteTraffic'] ]
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_on_failure'] ]
-              echo $[ stageDependencies.StageA.setVar_Canary.outputs['setVar_Canary.setvarStep.myOutputVar_on_success'] ]
-      name: echovar_setVar_Canary
-    - script: |
-              echo $[ stageDependencies.StageA.setVar_job.outputs['setvarStep.myOutputVar'] ]
-      name: echovar_setVar_job
+
+#  - job: echoVars_stageDependencies_Rolling
+#    displayName: echoVars_stageDependencies_Rolling
+#    variables:
+#      setVar_deployment_Rolling_preDeploy:        $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['PreDeploy.setVar_deployment_Rolling_preDeploy.myOutputVar_preDeploy'] ]
+#      setVar_deployment_Rolling_deploy:           $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['Deploy.setVar_deployment_Rolling_deploy.myOutputVar_deploy'] ]
+#      setVar_deployment_Rolling_routeTraffic:     $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['RouteTraffic.setVar_deployment_Rolling_routTraffic.myOutputVar_routTraffic'] ]
+#      setVar_deployment_Rolling_postRouteTraffic: $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['PostRouteTraffic.setVar_deployment_Rolling_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+#      setVar_deployment_Rolling_on_failure:       $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['OnFailure.setVar_deployment_Rolling_on_failure.myOutputVar_on_failure'] ]
+#      setVar_deployment_Rolling_on_success:       $[ stageDependencies.StageA.setVar_deployment_Rolling.outputs['OnSuccess.setVar_deployment_Rolling_on_success.myOutputVar_on_success'] ]
+#    steps:
+#    - script: |
+#              echo $(setVar_deployment_Rolling_preDeploy)
+#              echo $(setVar_deployment_Rolling_deploy)
+#              echo $(setVar_deployment_Rolling_routeTraffic)
+#              echo $(setVar_deployment_Rolling_postRouteTraffic)
+#              echo $(setVar_deployment_Rolling_on_failure)
+#              echo $(setVar_deployment_Rolling_on_success)
+#      name: echovar_setVar_Rolling
+
+#  - job: echoVars_stageDependencies_Canary
+#    displayName: echoVars_stageDependencies_Canary
+#    variables:
+#      setVar_deployment_Canary_preDeploy:        $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['PreDeploy.setVar_deployment_Canary_preDeploy.myOutputVar_preDeploy'] ]
+#      setVar_deployment_Canary_deploy:           $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['Deploy.setVar_deployment_Canary_deploy.myOutputVar_deploy'] ]
+#      setVar_deployment_Canary_routeTraffic:     $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['RouteTraffic.setVar_deployment_Canary_routTraffic.myOutputVar_routTraffic'] ]
+#      setVar_deployment_Canary_postRouteTraffic: $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['PostRouteTraffic.setVar_deployment_Canary_postRouteTraffic.myOutputVar_postRouteTraffic'] ]
+#      setVar_deployment_Canary_on_failure:       $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['OnFailure.setVar_deployment_Canary_on_failure.myOutputVar_on_failure'] ]
+#      setVar_deployment_Canary_on_success:       $[ stageDependencies.StageA.setVar_deployment_Canary.outputs['OnSuccess.setVar_deployment_Canary_on_success.myOutputVar_on_success'] ]
+#    steps:
+#    - script: |
+#              echo $(setVar_deployment_Canary_preDeploy)
+#              echo $(setVar_deployment_Canary_deploy)
+#              echo $(setVar_deployment_Canary_routeTraffic)
+#              echo $(setVar_deployment_Canary_postRouteTraffic)
+#              echo $(setVar_deployment_Canary_on_failure)
+#              echo $(setVar_deployment_Canary_on_success)
+#      name: echovar_setVar_Canary
