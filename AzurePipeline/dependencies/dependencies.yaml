@@ -9,8 +9,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - preDeploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_RunOnce - preDeploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_preDeploy)
             name: echovar
@@ -18,8 +18,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - deploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_RunOnce - deploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_deploy)
             name: echovar
@@ -27,8 +27,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - routTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - routTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_routeTraffic)
             name: echovar
@@ -36,8 +36,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - postRouteTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_RunOnce - postRouteTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
             name: echovar
@@ -46,8 +46,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -56,8 +56,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_RunOnce - on - success"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_RunOnce - on - success"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
@@ -72,8 +72,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - preDeploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Rolling - preDeploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_preDeploy)
             name: echovar
@@ -81,8 +81,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - deploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Rolling - deploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_deploy)
             name: echovar
@@ -90,8 +90,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - routTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - routTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_routeTraffic)
             name: echovar
@@ -99,8 +99,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - postRouteTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Rolling - postRouteTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
             name: echovar
@@ -109,8 +109,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -119,8 +119,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
@@ -134,8 +134,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - preDeploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_preDeploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_preDeploy;isOutput=true]MyVar - setVar_deployment_Canary - preDeploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_preDeploy)
             name: echovar
@@ -143,8 +143,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - deploy"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_deploy']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_deploy;isOutput=true]MyVar - setVar_deployment_Canary - deploy"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_deploy)
             name: echovar
@@ -152,8 +152,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - routTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_routeTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_routeTraffic;isOutput=true]MyVar - setVar_deployment_Canary - routTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_routeTraffic)
             name: echovar
@@ -161,8 +161,8 @@ stages:
           steps:
           - bash: |
                   echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
-                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - postRouteTraffic"
+                  echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_postRouteTraffic']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_postRouteTraffic;isOutput=true]MyVar - setVar_deployment_Canary - postRouteTraffic"
             name: setvarStep
           - bash: echo $(setvarStep.myOutputVar_postRouteTraffic)
             name: echovar
@@ -171,8 +171,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -181,8 +181,8 @@ stages:
             steps:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
+                    echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
+          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
