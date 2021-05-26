@@ -3,7 +3,7 @@ stages:
   jobs:
   - deployment: setVar_deployment_RunOnce
     environment: 
-      name: env
+      name: env1
     strategy:
       runOnce:
         preDeploy:
@@ -57,8 +57,9 @@ stages:
             - bash: echo $(setvarStep.myOutputVar_on_success)
 
   - deployment: setVar_deployment_Rolling
+    condition: false
     environment: 
-      name: env
+      name: env1
       resourceType: virtualmachine
     strategy:
       rolling:
@@ -115,7 +116,7 @@ stages:
 
   - deployment: setVar_deployment_Canary
     environment: 
-      name: env
+      name: env1
       resourceType: virtualmachine
     strategy:
       canary:
@@ -219,6 +220,7 @@ stages:
               echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_on_failure.myOutputVar_on_failure'] ]
               echo $[ dependencies.setVar_deployment_Rolling.outputs['setVar_deployment_Rolling.setVar_deployment_Rolling_on_success.myOutputVar_on_success'] ]
       name: echovar_setVar_Rolling
+      condition: false
     - script: |
               echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_preDeploy.myOutputVar_preDeploy'] ]
               echo $[ dependencies.setVar_deployment_Canary.outputs['setVar_deployment_Canary.setVar_deployment_Canary_deploy.myOutputVar_deploy'] ]
