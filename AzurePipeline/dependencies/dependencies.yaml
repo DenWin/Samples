@@ -51,7 +51,6 @@ stages:
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
-        on:
           success:
             steps:
             - bash: |
@@ -114,7 +113,6 @@ stages:
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
-        on:
           success:
             steps:
             - bash: |
@@ -176,7 +174,6 @@ stages:
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
-        on:
           success:
             steps:
             - bash: |
