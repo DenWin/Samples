@@ -47,7 +47,7 @@ stages:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
                     echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_RunOnce - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -110,7 +110,7 @@ stages:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
                     echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Rolling - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -120,7 +120,7 @@ stages:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
                     echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Rolling - on - success"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
@@ -172,7 +172,7 @@ stages:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
                     echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_failure']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_failure;isOutput=true]MyVar - setVar_deployment_Canary - on - failure"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_failure)
               name: echovar
@@ -182,7 +182,7 @@ stages:
             - bash: |
                     echo "dependencies.$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
                     echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['$(System.JobName).setvarStep.myOutputVar_on_success']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
+            - bash: echo "##vso[task.setvariable variable=myOutputVar_on_success;isOutput=true]MyVar - setVar_deployment_Canary - on - success"
               name: setvarStep
             - bash: echo $(setvarStep.myOutputVar_on_success)
               name: echovar
@@ -191,7 +191,7 @@ stages:
     steps:
     - bash: echo "dependencies.$(System.JobName).outputs['setvarStep.myOutputVar']"
             echo "stageDependencies.$(System.StageName).$(System.JobName).outputs['setvarStep.myOutputVar']"
-          - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_job"
+    - bash: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]MyVar - setVar_job"
       name: setvarStep
     - bash: echo $(setvarStep.myOutputVar)
       name: echovar
