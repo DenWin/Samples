@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "example" {
 #    tags     = { A = "B" }
 }
 
-
+/*
 module "network" {
     source                  = "./network_w_dataSource"
     depends_on              = [azurerm_resource_group.example]
@@ -18,7 +18,7 @@ module "network" {
 #    resource_group_location = azurerm_resource_group.example.location
     address_space           = [ "10.0.0.0/16" ]
 }
-
+*/
 
 /*
 module "network" {
