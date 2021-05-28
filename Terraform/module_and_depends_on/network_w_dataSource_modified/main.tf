@@ -8,6 +8,9 @@ data "azurerm_resource_group" "network" {
     name = var.resource_group_name
 }
 
+data "azurerm_client_config" "current" {
+}
+
 resource "azurerm_virtual_network" "vnet" {
 #    lifecycle {
 #        ignore_changes = [ location, resource_group_name ]
